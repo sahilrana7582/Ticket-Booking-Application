@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ticket-service
+
+  config:
+    import: configserver:http://localhost:8888
+
+  cloud:
+    config:
+      uri: http://localhost:8888
+      label: main
