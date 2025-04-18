@@ -21,28 +21,24 @@ public class TrainController {
 
     private final TrainService trainService;
 
-    // ➕ Create New Train
     @PostMapping
     public ResponseEntity<TrainResponse> createTrain(@RequestBody CreateTrainRequest request) {
         TrainResponse response = trainService.createTrain(request);
         return ResponseEntity.ok(response);
     }
 
-    // ♻️ Update Train
     @PutMapping
     public ResponseEntity<TrainResponse> updateTrain(@RequestBody UpdateTrainRequest request) {
         TrainResponse response = trainService.updateTrain(request);
         return ResponseEntity.ok(response);
     }
 
-    // ❌ Delete Train
     @DeleteMapping("/{trainId}")
     public ResponseEntity<String> deleteTrain(@PathVariable String trainId) {
         trainService.deleteTrain(trainId);
         return ResponseEntity.ok("Train deleted successfully");
     }
 
-    // 🚏 Add Intermediate Stop
     @PostMapping("/{trainId}/intermediate-stops")
     public ResponseEntity<TrainResponse> addIntermediateStop(
             @PathVariable String trainId,
@@ -51,15 +47,12 @@ public class TrainController {
         return ResponseEntity.ok(response);
     }
 
-    // 📄 Get All Trains
     @GetMapping
     public ResponseEntity<List<TrainResponse>> getAllTrains() {
         return ResponseEntity.ok(trainService.getAllTrains());
     }
 
 
-
-    // 🔍 Get Train By ID
     @GetMapping("/{trainId}")
     public ResponseEntity<TrainResponse> getTrainById(@PathVariable String trainId) {
         return ResponseEntity.ok(trainService.getTrainById(trainId));
