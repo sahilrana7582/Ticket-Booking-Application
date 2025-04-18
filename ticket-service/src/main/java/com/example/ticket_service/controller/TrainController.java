@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/api/trains")
@@ -56,9 +57,17 @@ public class TrainController {
         return ResponseEntity.ok(trainService.getAllTrains());
     }
 
+
+
     // 🔍 Get Train By ID
     @GetMapping("/{trainId}")
     public ResponseEntity<TrainResponse> getTrainById(@PathVariable String trainId) {
         return ResponseEntity.ok(trainService.getTrainById(trainId));
     }
+
+    @GetMapping("/station/{station}")
+    public ResponseEntity<List<TrainResponse>> findAllTrainsByStation(@PathVariable String station) {
+        return ResponseEntity.ok(trainService.findAllTrainsByStation(station));
+    }
+
 }

@@ -9,3 +9,19 @@ spring:
     config:
       uri: http://localhost:8888
       label: main
+
+
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      test:
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 3
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+
+  timelimiter:
+    instances:
+      test:
+        timeoutDuration: 2s

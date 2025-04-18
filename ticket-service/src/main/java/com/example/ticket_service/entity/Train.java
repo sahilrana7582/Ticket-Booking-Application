@@ -43,7 +43,8 @@ public class Train {
     private TrainStatus status;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "train_id") // foreign key in IntermediateStop table
+    @JoinColumn(name = "train_id")
+    @OrderBy("arrivalTime ASC")
     private List<IntermediateStop> intermediateStops;
 }
 

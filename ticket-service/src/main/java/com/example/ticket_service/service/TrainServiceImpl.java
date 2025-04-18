@@ -8,11 +8,14 @@ import com.example.ticket_service.DTO.UpdateTrainRequest;
 import com.example.ticket_service.entity.Train;
 import com.example.ticket_service.mapper.TrainMapper;
 import com.example.ticket_service.repository.TrainRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
@@ -72,6 +75,14 @@ public class TrainServiceImpl implements TrainService {
         return trainRepository.findAll()
                 .stream()
                 .map(trainMapper::toResponse)
+                .toList();
+    }
+
+
+    @Override
+    public List<TrainResponse> findAllTrainsByStation(String station) {
+        return trainRepository.findAllTrainsByStation(station)
+                .stream().map(trainMapper::toResponse)
                 .toList();
     }
 }
