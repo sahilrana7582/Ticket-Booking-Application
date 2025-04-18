@@ -1,5 +1,4 @@
-package com.example.user_service.exceptions;
-
+package com.example.ticket_service.exceptions;
 
 import java.time.LocalDateTime;
 
@@ -14,16 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ErrorDetails {
 
-
     private String status;
-
     private String errorMessage;
-
-
     private int statusCode;
-
-
     private String errorCode;
-
     private LocalDateTime timeStamp;
+
 }

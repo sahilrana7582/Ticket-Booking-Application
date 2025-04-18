@@ -1,27 +1,20 @@
-package com.example.ticket_service.entity;
+package com.example.ticket_service.DTO;
 
 
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class IntermediateStop {
+public class AddIntermediateStopRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
-
+    private String trainId;
     private String stationName;
-
     private LocalDateTime arrivalTime;
-
     private LocalDateTime departureTime;
 }

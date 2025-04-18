@@ -1,7 +1,7 @@
-package com.example.user_service.exceptions;
+package com.example.ticket_service.exceptions;
 
 
-import com.example.user_service.enums.ResponseStatus;
+import com.example.ticket_service.enums.ResponseStatus;
 
 public class CustomException extends RuntimeException {
 
