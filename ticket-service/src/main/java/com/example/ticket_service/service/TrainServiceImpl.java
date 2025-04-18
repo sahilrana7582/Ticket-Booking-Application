@@ -1,10 +1,7 @@
 package com.example.ticket_service.service;
 
 
-import com.example.ticket_service.DTO.CreateTrainRequest;
-import com.example.ticket_service.DTO.IntermediateStopDTO;
-import com.example.ticket_service.DTO.TrainResponse;
-import com.example.ticket_service.DTO.UpdateTrainRequest;
+import com.example.ticket_service.DTO.*;
 import com.example.ticket_service.entity.Train;
 import com.example.ticket_service.mapper.TrainMapper;
 import com.example.ticket_service.repository.TrainRepository;
@@ -12,6 +9,7 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +22,12 @@ public class TrainServiceImpl implements TrainService {
 
     private final TrainRepository trainRepository;
     private final TrainMapper trainMapper;
+    private final KafkaTemplate<String, TrainSeatRecord> trainSeatRecordKafkaTemplate;
 
     @Override
     public TrainResponse createTrain(CreateTrainRequest request) {
         Train train = trainRepository.save(trainMapper.mapToEntity(request));
+        trainSeatRecordKafkaTemplate.send("train-creation-events", new TrainSeatRecord(train.getTrainId(), train.getTotalSeats()));
         return trainMapper.toResponse(train);
     }
 
@@ -85,4 +85,6 @@ public class TrainServiceImpl implements TrainService {
                 .stream().map(trainMapper::toResponse)
                 .toList();
     }
+
+
 }

@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/seat")
@@ -22,4 +24,12 @@ public class SeatController {
     public ResponseEntity<SeatResponseDTO> createSeat(@RequestBody SeatRequestDTO seatRequestDTO) {
         return ResponseEntity.ok(seatService.createSeat(seatRequestDTO));
     }
+
+
+    @GetMapping
+    public ResponseEntity<List<SeatResponseDTO>> allSeats() {
+        return ResponseEntity.ok(seatService.allSeats());
+    }
+
+
 }
